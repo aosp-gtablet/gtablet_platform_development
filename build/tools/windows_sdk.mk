@@ -35,7 +35,7 @@ WIN_TARGETS := \
 	zipalign \
 	$(WIN_SDK_TARGETS)
 
-# LINUX_SDK_NAME/DIR is set in build/core/Makefile
+# MAIN_SDK_NAME/DIR is set in build/core/Makefile
 WIN_SDK_NAME := $(subst $(HOST_OS)-$(HOST_ARCH),windows,$(MAIN_SDK_NAME))
 WIN_SDK_DIR  := $(subst $(HOST_OS)-$(HOST_ARCH),windows,$(MAIN_SDK_DIR))
 WIN_SDK_ZIP  := $(WIN_SDK_DIR)/$(WIN_SDK_NAME).zip
@@ -62,7 +62,7 @@ win_sdk: $(WIN_SDK_ZIP)
 
 winsdk-tools: acp
 	$(call winsdk-banner,Build Windows Tools)
-	$(hide) USE_MINGW=1 $(MAKE) PRODUCT-$(TARGET_PRODUCT)-$(strip $(WIN_TARGETS)) $(if $(hide),,showcommands)
+	$(hide) USE_MINGW=1 USE_CCACHE="" $(MAKE) PRODUCT-$(TARGET_PRODUCT)-$(strip $(WIN_TARGETS)) $(if $(hide),,showcommands)
 
 $(WIN_SDK_ZIP): winsdk-tools sdk
 	$(call winsdk-banner,Build $(WIN_SDK_NAME))
